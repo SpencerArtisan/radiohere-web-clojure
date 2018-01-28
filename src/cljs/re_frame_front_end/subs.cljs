@@ -2,6 +2,11 @@
   (:require [re-frame.core :as re-frame]))
 
 (re-frame/reg-sub
- ::name
+ :gigs
  (fn [db]
-   (:name db)))
+   (:gigs db)))
+
+(re-frame/reg-sub
+ :keyword
+ (fn [db]
+   (:keyword db)))

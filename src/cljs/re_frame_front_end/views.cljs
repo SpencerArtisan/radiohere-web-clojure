@@ -1,10 +1,22 @@
 (ns re-frame-front-end.views
-  (:require [re-frame.core :as re-frame]
+  (:require [re-frame.core :as rf]
             [re-frame-front-end.subs :as subs]
             ))
 
+(defn gig-list
+  []
+  (let [gigs @(rf/subscribe [:gigs])]
+    [:table#gig-table
+      (for [gig gigs]
+        [:tr 
+          [:td (:artist gig)]
+          [:td (:venueName gig)]
+          [:td (:distance gig)]
+        ])
+      ]
+))
+
 (defn main-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
    [:div 
      [:div#search
           [:label "Within"]
@@ -14,17 +26,21 @@
           [:input#address {:type "text"}]
           [:button#location-search "Search"]
           [:label {:style {:margin-left "40px"}} "...or search on a keyword"]
-          [:input#who  {:type "text"}]
-          [:button#word-search "Search"]
+          [:input#who {:type "text"
+            :value @(rf/subscribe [:keyword])
+            :on-change #(rf/dispatch [:keyword-change (-> % .-target .-value)])}]
+          [:button#word-search 
+            {:on-click #(rf/dispatch [:keyword-search])}
+            "Search"]
       ]
       [:div#music
         [:div#gigs
-            [:table#gig-table]
+            (when (seq @(rf/subscribe [:gigs])) [gig-list])
         ]
         [:div#songs
             [:table#song-table]
         ]
       ]
     ]
-))
+)
 

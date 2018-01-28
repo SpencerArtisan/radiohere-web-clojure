@@ -1,0 +1,59 @@
+body {
+	font-family: "ff-meta-web-pro", sans-serif;
+	text-rendering: optimizeLegibility;
+	font-size: 100%;
+	color: white;
+	line-height: 26px;
+	width: 100%;
+	background-color: #f2bb30;
+	margin: 0px;
+}
+#search {
+	position: fixed;
+	top: 0;
+	background-color: #c879b2;
+	width: 100%;
+	height: 27px;
+	z-index: 999;
+	padding-left:10px;
+}
+#music {
+	position: relative;
+        background: #f15a30;
+        width: 100%;
+        margin-top: 27px;
+}
+#gigs {
+	position: absolute;
+	background-color: #f15a30;
+	width: 70%;
+}
+#gigs .selected {
+	background-color: #f2bb30;
+}
+#songs {
+	background-color: #f2bb30;
+	width: 30%;
+	float: right;
+}
+#songs .selected {
+	background-color: #f5cb40;
+}
+table {
+	margin: 0px;
+	padding: 0px;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	width: 100%;
+	border-width: 0px;
+}
+td { 
+	padding-left: 10px;
+	padding-right: 10px;
+}
+input {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+

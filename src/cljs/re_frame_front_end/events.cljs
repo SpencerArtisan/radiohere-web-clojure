@@ -30,6 +30,12 @@
     (println "select gig " (get gig "artist"))
     (assoc db :selected-gig gig)))
 
+(rf/reg-event-db
+  :select-song
+  (fn [db [_ song]]
+    (println "select song " song) 
+    (assoc db :selected-song song)))
+
 (rf/reg-event-fx
   :keyword-search
   (fn [{:keys [db]} _]

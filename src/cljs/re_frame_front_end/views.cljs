@@ -22,11 +22,13 @@
 
 (defn song-list
   []
-  (let [gig @(rf/subscribe [:selected-gig])]
+  (let [gig @(rf/subscribe [:selected-gig])
+        selected-song @(rf/subscribe [:selected-song])]
     [:table#song-table
      [:tbody
       (for [song (get gig "tracks")]
-        [:tr {:on-click #(rf/dispatch [:select-song song])}
+        [:tr {:class (if (= song selected-song) :selected nil)
+              :on-click #(rf/dispatch [:select-song song])}
           [:td (get song "title")]
         ])
       ]

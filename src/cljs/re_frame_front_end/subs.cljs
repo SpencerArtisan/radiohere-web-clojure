@@ -12,6 +12,11 @@
    (:selected-gig db)))
 
 (re-frame/reg-sub
+ :selected-song
+ (fn [db]
+   (:selected-song db)))
+
+(re-frame/reg-sub
  :keyword
  (fn [db]
    (:keyword db)))

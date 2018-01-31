@@ -10,3 +10,13 @@
  :keyword
  (fn [db]
    (:keyword db)))
+
+(re-frame/reg-sub
+ :address
+ (fn [db]
+   (:address db)))
+
+(re-frame/reg-sub
+ :distance
+ (fn [db]
+   (:distance db)))

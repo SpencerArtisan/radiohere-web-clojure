@@ -20,10 +20,14 @@
    [:div 
      [:div#search
           [:label "Within"]
-          [:input#distance {:type "text"}]
+          [:input#distance {:type "text"
+            :value @(rf/subscribe [:distance])
+            :on-change #(rf/dispatch [:distance-change (-> % .-target .-value)])}]
           [:span "km "]
           [:label "of"]
-          [:input#address {:type "text"}]
+          [:input#address {:type "text"
+            :value @(rf/subscribe [:address])
+            :on-change #(rf/dispatch [:address-change (-> % .-target .-value)])}]
           [:button#location-search 
             {:on-click #(rf/dispatch [:location-search])}
             "Search"]

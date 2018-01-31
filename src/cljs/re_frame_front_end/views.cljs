@@ -7,13 +7,28 @@
   []
   (let [gigs @(rf/subscribe [:gigs])]
     [:table#gig-table
+     [:tbody
       (for [gig gigs]
-        [:tr 
-          [:td (:artist gig)]
-          [:td (:venueName gig)]
-          [:td (:distance gig)]
+        [:tr {:on-click #(rf/dispatch [:select-gig gig])}
+          [:td (get gig "artist")]
+          [:td (get gig "venueName")]
+          [:td (get gig "distance")]
         ])
       ]
+     ]
+))
+
+(defn song-list
+  []
+  (let [gig @(rf/subscribe [:selected-gig])]
+    [:table#song-table
+     [:tbody
+      (for [song (get gig "tracks")]
+        [:tr {:on-click #(rf/dispatch [:select-song song])}
+          [:td (get song "title")]
+        ])
+      ]
+     ]
 ))
 
 (defn main-panel []
@@ -44,7 +59,7 @@
             (when (seq @(rf/subscribe [:gigs])) [gig-list])
         ]
         [:div#songs
-            [:table#song-table]
+            (when (seq @(rf/subscribe [:selected-gig])) [song-list])
         ]
       ]
     ]

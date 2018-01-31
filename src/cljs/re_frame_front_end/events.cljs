@@ -24,6 +24,12 @@
   (fn [db [_ new-value]]
     (assoc db :address new-value)))
 
+(rf/reg-event-db
+  :select-gig
+  (fn [db [_ gig]]
+    (println "select gig " (get gig "artist"))
+    (assoc db :selected-gig gig)))
+
 (rf/reg-event-fx
   :keyword-search
   (fn [{:keys [db]} _]
@@ -37,16 +43,7 @@
     (println "location search")
     {:open-ws {:url "ws://serene-harbor-24890.herokuapp.com/ws" ;"ws://localhost:8080/ws" 
                :on-open [:send (str (:address db) ";" (:distance db))]
-               :on-data [:add-gig]}
-     :db db}))
-
-(rf/reg-fx
-   :open-ws
-   (fn [{url :url
-         on-open :on-open
-         on-data :on-data}]
-     (println "Opening Websocket " url)
-     (make-websocket! url #(rf/dispatch (conj on-data %)) #(rf/dispatch on-open))))
+               :on-data [:add-gig]} }))
 
 (rf/reg-event-fx
   :send
@@ -56,9 +53,7 @@
 (rf/reg-event-fx
   :add-gig
   (fn [cofx [_ gig]]
-    (print "Received gig " gig)
-    (update-in cofx [:db :gigs] #(conj % {:artist (get gig "artist") :venueName (get gig "venueName") :distance (get gig "distance")}))))
-    
+      (update-in cofx [:db :gigs] #(conj % gig))))
 
 (rf/reg-fx
    :send-to-ws
@@ -66,3 +61,10 @@
      (print "Sending to Websocket " message)
      (send-transit-msg! message)))
 
+(rf/reg-fx
+   :open-ws
+   (fn [{url :url
+         on-open :on-open
+         on-data :on-data}]
+     (println "Opening Websocket " url)
+     (make-websocket! url #(rf/dispatch (conj on-data %)) #(rf/dispatch on-open))))

@@ -7,6 +7,11 @@
    (:gigs db)))
 
 (re-frame/reg-sub
+ :selected-gig
+ (fn [db]
+   (:selected-gig db)))
+
+(re-frame/reg-sub
  :keyword
  (fn [db]
    (:keyword db)))

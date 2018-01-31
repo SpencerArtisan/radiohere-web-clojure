@@ -1,6 +1,9 @@
 (defproject re-frame-front-end "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.908"]
+                 [org.clojure/core.async  "0.3.465"]
+                 [com.cognitect/transit-cljs "0.8.243"]
+                 [jarohen/chord "0.8.1"]
                  [reagent "0.7.0"]
                  [re-frame "0.10.2"]]
 

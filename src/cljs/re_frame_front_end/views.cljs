@@ -24,7 +24,9 @@
           [:span "km "]
           [:label "of"]
           [:input#address {:type "text"}]
-          [:button#location-search "Search"]
+          [:button#location-search 
+            {:on-click #(rf/dispatch [:location-search])}
+            "Search"]
           [:label {:style {:margin-left "40px"}} "...or search on a keyword"]
           [:input#who {:type "text"
             :value @(rf/subscribe [:keyword])

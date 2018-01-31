@@ -5,11 +5,13 @@
 
 (defn gig-list
   []
-  (let [gigs @(rf/subscribe [:gigs])]
+  (let [gigs @(rf/subscribe [:gigs])
+        selected-gig @(rf/subscribe [:selected-gig])]
     [:table#gig-table
      [:tbody
       (for [gig gigs]
-        [:tr {:on-click #(rf/dispatch [:select-gig gig])}
+        [:tr {:class (if (= gig selected-gig) :selected nil)
+              :on-click #(rf/dispatch [:select-gig gig])}
           [:td (get gig "artist")]
           [:td (get gig "venueName")]
           [:td (get gig "distance")]

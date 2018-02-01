@@ -14,6 +14,7 @@
           [:td (get gig "artist")]
           [:td (get gig "venueName")]
           [:td (get gig "distance")]
+          [:td (get gig "date")]
         ])
       ]
      ]

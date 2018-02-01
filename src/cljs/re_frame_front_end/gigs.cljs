@@ -1,4 +1,4 @@
-(ns radiohere.gigs
+(ns re-frame-front-end.gigs
     (:require [cognitect.transit :as t]
               [chord.client :refer [ws-ch]]
               [cljs.core.async :refer [<! >! put! close! timeout]]))

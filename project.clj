@@ -17,10 +17,13 @@
 
   :figwheel {:css-dirs ["resources/public/css"]}
 
+
+
+  :main ^{:skip-aot true} re-frame-front-end.core
+
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.4"]]
-
     :plugins      [[lein-figwheel "0.5.13"]]}}
 
   :cljsbuild

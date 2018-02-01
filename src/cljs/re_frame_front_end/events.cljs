@@ -1,7 +1,7 @@
 (ns re-frame-front-end.events
   (:require [re-frame.core :as rf]
             [re-frame-front-end.db :as db]
-            [radiohere.gigs :refer [make-websocket! send-transit-msg!]]
+            [re-frame-front-end.gigs :refer [make-websocket! send-transit-msg!]]
 ))
 
 (rf/reg-event-db

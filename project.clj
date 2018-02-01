@@ -5,7 +5,10 @@
                  [com.cognitect/transit-cljs "0.8.243"]
                  [jarohen/chord "0.8.1"]
                  [reagent "0.7.0"]
-                 [re-frame "0.10.2"]]
+                 [re-frame "0.10.2"]
+                 [compojure "1.5.0"]
+                 [yogthos/config "0.8"]
+                 [ring "1.4.0"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]]
 
@@ -15,13 +18,13 @@
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
-  :figwheel {:css-dirs ["resources/public/css"]}
-
-;  :main ^{:skip-aot true} re-frame-front-end.core.init
+  :figwheel {:css-dirs ["resources/public/css"]
+             :ring-handler re-frame-front-end.handler/dev-handler}
 
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.4"]]
+
     :plugins      [[lein-figwheel "0.5.13"]]}}
 
   :cljsbuild
@@ -40,6 +43,7 @@
 
     {:id           "min"
      :source-paths ["src/cljs"]
+     :jar true
      :compiler     {:main            re-frame-front-end.core
                     :output-to       "resources/public/js/compiled/app.js"
                     :optimizations   :advanced
@@ -49,4 +53,11 @@
 
     ]}
 
+  :main re-frame-front-end.server
+
+  :aot [re-frame-front-end.server]
+
+  :uberjar-name "re-frame-front-end.jar"
+
+  :prep-tasks [["cljsbuild" "once" "min"] "compile"]
   )

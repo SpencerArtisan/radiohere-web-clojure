@@ -19,7 +19,7 @@
 
 
 
-  :main ^{:skip-aot true} re-frame-front-end.core
+  :main ^{:skip-aot true} re-frame-front-end.server
 
   :profiles
   {:dev

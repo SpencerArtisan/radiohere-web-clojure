@@ -1,10 +1,14 @@
-# re-frame-front-end
+# radiohere
 
-A [re-frame](https://github.com/Day8/re-frame) application designed to ... well, that part is up to you.
+A music discovery app.
 
-## Development Mode
+## Overview
 
-### Run application:
+The front-end is clojurescript using Reframe and connects to a WebSocket providing gig and song data.
+
+## Setup
+
+To get an interactive development environment run:
 
 ```
 lein clean
@@ -15,12 +19,3 @@ Figwheel will automatically push cljs changes to the browser.
 
 Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
 
-## Production Build
-
-
-To compile clojurescript to javascript:
-
-```
-lein clean
-lein cljsbuild once min
-```

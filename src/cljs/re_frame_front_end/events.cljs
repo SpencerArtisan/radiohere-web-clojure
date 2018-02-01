@@ -30,12 +30,13 @@
     (println "select gig " (get gig "artist"))
     (assoc db :selected-gig gig)))
 
-(rf/reg-event-db
+(rf/reg-event-fx
   :select-song
-  (fn [db [_ song]]
+  (fn [cofx [_ song]]
     (println "select song " song) 
-    (assoc db :selected-song song)))
-
+    (assoc (update-in cofx [:db :selected-song] #(identity song))
+           :play-song {:song-url (get song "streamUrl")})))
+      
 (rf/reg-event-fx
   :keyword-search
   (fn [{:keys [db]} _]
@@ -74,3 +75,12 @@
          on-data :on-data}]
      (println "Opening Websocket " url)
      (make-websocket! url #(rf/dispatch (conj on-data %)) #(rf/dispatch on-open))))
+
+(def audio (atom (js/Audio.)))
+(rf/reg-fx
+    :play-song
+    (fn [{song-url :song-url}]
+         (println "Playing " song-url)
+         (.pause @audio)
+         (reset! audio (js/Audio. song-url))
+         (.play @audio)))

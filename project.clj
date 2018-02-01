@@ -17,9 +17,7 @@
 
   :figwheel {:css-dirs ["resources/public/css"]}
 
-
-
-  :main ^{:skip-aot true} re-frame-front-end.core
+;  :main ^{:skip-aot true} re-frame-front-end.core.init
 
   :profiles
   {:dev

@@ -1,7 +1,6 @@
 (ns re-frame-front-end.views
   (:require [re-frame.core :as rf]
-            [re-frame-front-end.subs :as subs]
-            ))
+            [re-frame-front-end.subs :as subs]))
 
 (defn gig-list
   []

@@ -5,7 +5,7 @@
 ))
 
 (rf/reg-event-db
- ::initialize-db
+ :initialize-db
  (fn  [_ _]
    db/default-db))
 
@@ -34,8 +34,10 @@
   :select-song
   (fn [cofx [_ song]]
     (println "select song " song) 
-    (assoc (update-in cofx [:db :selected-song] #(identity song))
-           :play-song {:song-url (get song "streamUrl")})))
+    (merge-with into 
+                cofx 
+                {:db {:selected-song song} 
+                 :play-song {:song-url (get song "streamUrl")}})))
       
 (rf/reg-event-fx
   :keyword-search
@@ -54,7 +56,7 @@
 
 (rf/reg-event-fx
   :send
-  (fn [{:keys [db]} [_ data]]
+  (fn [_ [_ data]]
     {:send-to-ws {:message data}}))
 
 (rf/reg-event-fx

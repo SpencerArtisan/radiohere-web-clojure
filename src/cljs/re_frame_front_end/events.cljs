@@ -4,6 +4,10 @@
             [re-frame-front-end.gigs :refer [make-websocket! send-transit-msg!]]
 ))
 
+(def ws-url
+    ;"ws://localhost:8080/ws") 
+    "ws://serene-harbor-24890.herokuapp.com/ws")
+
 (rf/reg-event-db
  :initialize-db
  (fn  [_ _]
@@ -42,17 +46,17 @@
 (rf/reg-event-fx
   :keyword-search
   (fn [{:keys [db]} _]
-    {:open-ws {:url "ws://serene-harbor-24890.herokuapp.com/ws" ;"ws://localhost:8080/ws" 
+    {:open-ws {:url ws-url
                :on-open [:send (:keyword db)]
-               :on-data [:add-gig]} }))
+               :on-data [:add-gig]}}))
 
 (rf/reg-event-fx
   :location-search
   (fn [{:keys [db]} _]
     (println "location search")
-    {:open-ws {:url "ws://serene-harbor-24890.herokuapp.com/ws" ;"ws://localhost:8080/ws" 
+    {:open-ws {:url ws-url 
                :on-open [:send (str (:address db) ";" (:distance db))]
-               :on-data [:add-gig]} }))
+               :on-data [:add-gig]}}))
 
 (rf/reg-event-fx
   :send
